@@ -11,5 +11,5 @@ Should work with smart plugs that accept http requests for control.
 
 Example dashboard (no connections established):
 
-![dashboard](https://github.com/javierb07/IoT_Control_Panel/Example_Panel.jpg)
+![dashboard](https://github.com/javierb07/IoT_Control_Panel/blob/master/Example_Panel.jpg)
 

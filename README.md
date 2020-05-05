@@ -8,3 +8,8 @@ Tested and developed connecting 4 machines and devices to Wemo Insight Smart Plu
 See https://github.com/iancmcc/ouimeaux for an API to set up and environment with Wemo plugs.
 
 Should work with smart plugs that accept http requests for control.
+
+Example dashboard (no connections established):
+
+![dashboard](https://github.com/javierb07/IoT_Control_Panel/Example_Panel.jpg)
+

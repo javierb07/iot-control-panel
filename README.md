@@ -1,5 +1,5 @@
 # IoT Control Panel
-Dashboard to control and monitor machines connected to smart plugs
+Dashboard to control and monitor machines connected to smart plugs.
 
 Connect machines or devices to smart plugs and control (turn them on or off) and monitor (see power consumption) them.
 

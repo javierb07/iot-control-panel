@@ -28,7 +28,7 @@ Object.keys(ifaces).forEach(function (ifname) {
 
 var express = require("express"),
     app = express(),
-    server = require("http").Server(app),
+    Wemo = require('wemo-client'),
     path = require('path');
 
 const PORT = 80;
@@ -49,7 +49,12 @@ app.get("/control", function(req, res){
     res.redirect("/control");
 });
 
-server.listen(PORT,hostname,function(eer){
+
+
+
+
+
+app.listen(PORT,hostname,function(eer){
     if (eer){
         console.log("Something went wrong.");
     } else {

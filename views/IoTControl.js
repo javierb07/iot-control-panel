@@ -1,26 +1,26 @@
-var PrinterSocket = new WebSocket("ws://192.168.100.2:8100/");
-var LaserCutterSocket = new WebSocket("ws://192.168.100.2:8200/");
-var CNCSocket = new WebSocket("ws://192.168.100.2:8300/");
-var RPi4Socket = new WebSocket("ws://192.168.100.2:8400/");
+var PrinterSocket = new WebSocket("ws://192.168.0.9:8765/");
+var LaserCutterSocket = new WebSocket("ws://192.168.0.9:8766/");
+var StorageSystemSocket = new WebSocket("ws://192.168.0.9:8768/");
+var SmartLampSocket = new WebSocket("ws://192.168.0.9:8767/");
 PrinterSocket.onerror = function (event) {
 	alert("Problem establishing communication with 3D Printer WebSocket")
 }
 LaserCutterSocket.onerror = function (event) {
 	alert("Problem establishing communication with Laser Cutter WebSocket")
 }
-CNCSocket.onerror = function (event) {
-	alert("Problem establishing communication with CNC WebSocket")
+StorageSystemSocket.onerror = function (event) {
+	alert("Problem establishing communication with RPi4 WebSocket")
 }
-RPi4Socket.onerror = function (event) {
+SmartLampSocket.onerror = function (event) {
 	alert("Problem establishing communication with RPi4 WebSocket")
 }
 websocketWaiter();
 webScocketCom(PrinterSocket);
 webScocketCom(LaserCutterSocket);
-webScocketCom(CNCSocket);
-webScocketCom(RPi4Socket);
-PrinterSocket.onmessage = function (event) {
+webScocketCom(StorageSystemSocket);
+webScocketCom(SmartLampSocket);
 
+PrinterSocket.onmessage = function (event) {
 	let printerMessage = event.data;
 	let messageElem = document.createElement('div');
   	messageElem.textContent = printerMessage;
@@ -28,6 +28,7 @@ PrinterSocket.onmessage = function (event) {
 	setButton('printerMessage','3DPrinterButton');
   	webScocketCom(PrinterSocket);
 }
+
 LaserCutterSocket.onmessage = function (event) {
 	let LaserCutterMessage = event.data;
 	let messageElem = document.createElement('div');
@@ -36,22 +37,25 @@ LaserCutterSocket.onmessage = function (event) {
 	setButton('laserCutterMessage','LaserCutterButton');
   	webScocketCom(LaserCutterSocket);
 }
-CNCSocket.onmessage = function (event) {
-	let CNCMessage = event.data;
+
+StorageSystemSocket.onmessage = function (event) {
+	let StorageSystemMessage = event.data;
 	let messageElem = document.createElement('div');
-	messageElem.textContent = CNCMessage;
-	document.getElementById('CNCMessage').innerHTML = messageElem.textContent;
-	setButton('CNCMessage','5AxisCNCButton')
-	webScocketCom(CNCSocket);
+	messageElem.textContent = StorageSystemMessage;
+	document.getElementById('storageSystemMessage').innerHTML = messageElem.textContent;
+	setButton('storageSystemMessage','StorageSystemButton')
+	webScocketCom(StorageSystemSocket);
 }
-RPi4Socket.onmessage = function (event) {
-	let RPi4Message = event.data;
+
+SmartLampSocket.onmessage = function (event) {
+	let SmartLampMessage = event.data;
 	let messageElem = document.createElement('div');
-	messageElem.textContent = RPi4Message;
-	document.getElementById('RPi4Message').innerHTML = messageElem.textContent;
-	setButton('RPi4Message','RPi4')
-	webScocketCom(RPi4Socket);
+	messageElem.textContent = SmartLampMessage;
+	document.getElementById('smartLampMessage').innerHTML = messageElem.textContent;
+	setButton('smartLampMessage','SmartLampButton')
+	webScocketCom(SmartLampSocket);
 }
+
 function websocketWaiter(){
     setTimeout(function(){
 		if (LaserCutterSocket.readyState === 1 & LaserCutterSocket.readyState === 1) {
@@ -62,16 +66,19 @@ function websocketWaiter(){
             }
         }, 5); // wait 5 milisecond for the connection...
 };
+
 function webScocketCom (socket){
 	if (socket.readyState === 1) {
 		socket.send("Request data!");
 	}
 }
+
 function doFunction(url){
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', url, true);
 	xhr.send();
 }
+
 function setButton(machine,button){
 	if(document.getElementById(machine).innerHTML == '0'){
 		document.getElementById(button).value = 'OFF';

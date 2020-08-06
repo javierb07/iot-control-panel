@@ -6,7 +6,8 @@
   "dependencies": {
     "ejs": "^3.0.1",
     "express": "^4.17.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "wemo-client": "^0.15.0"
   },
   "devDependencies": {},
   "scripts": {

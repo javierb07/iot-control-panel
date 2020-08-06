@@ -1,3 +1,4 @@
+// WebSocket addresses need to be configured to match correct URLs 
 var PrinterSocket = new WebSocket("ws://192.168.0.9:8765/");
 var LaserCutterSocket = new WebSocket("ws://192.168.0.9:8766/");
 var StorageSystemSocket = new WebSocket("ws://192.168.0.9:8768/");

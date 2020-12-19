@@ -1,38 +1,34 @@
-'use strict';
+var express        = require("express"),
+    app            = express(),
+    bodyParser     = require("body-parser"),
+    Wemo           = require('wemo-client'),
+    mongoose       = require("mongoose"),
+    methodOverride = require("method-override"),
+    seedDB         = require("./seeds"),
+    Device         = require("./models/device");
 
-var os = require('os');
-var ifaces = os.networkInterfaces();
-var hostname = "";
-
-Object.keys(ifaces).forEach(function (ifname) {
-  var alias = 0;
-  ifaces[ifname].forEach(function (iface) {
-    if ('IPv4' !== iface.family || iface.internal !== false) {
-      // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
-      return;
-    }
-    if (alias >= 1) {
-      // this single interface has multiple ipv4 addresses
-      console.log(ifname + ':' + alias, iface.address);
-      
+// Set up default mongoose connection
+const host = process.env.HOST || "mongodb://localhost:27017/iot-panel";
+mongoose.connect(host,{ useNewUrlParser: true ,useUnifiedTopology: true}, function(err){
+    if (err){
+        console.log("Conection error to database")
     } else {
-      // this interface has only one ipv4 adress
-      console.log(ifname, iface.address);
-      if(ifname=="Ethernet 3"){
-        hostname = iface.address;
-      }
+        console.log("Connected to database")
     }
-    ++alias;
-  });
 });
+// Get the default connection
+var db = mongoose.connection;
+// Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-var express = require("express"),
-    app = express(),
-    Wemo = require('wemo-client'),
-    path = require('path');
+// App configuration
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json());
+app.use(methodOverride('_method'));
+app.set("view engine", "ejs");
+app.use(express.static(__dirname));
 
-const PORT = 80;
-app.use(express.static(__dirname + '/views'));
+seedDB(); // Seed the database
 
 // RESTFUL ROUTES
 app.get("/", function(req, res){
@@ -41,7 +37,53 @@ app.get("/", function(req, res){
 
 // INDEX ROUTE (It should display control panel)
 app.get("/control", function(req, res){
-    res.sendFile(path.join(__dirname + "/views/IoTControl.html"));
+    Device.find({}, function(err, devices){
+        if(err){
+            req.flash("error", "Problem finding devices in database");
+            console.log(err);
+            res.send("error", {error: err});
+        } else {
+            res.render("IoTControl", {devices: devices});
+        }
+    })
+});
+
+// Create route: It creates a new device
+app.post("/devices", function(req, res){
+    var device = req.body.device;
+    // Validate websocket URL
+    let re = /^(wss?):\/\/[0-2]?[0-9]?[0-9].[0-2]?[0-9]?[0-9].[0-2]?[0-9]?[0-9].[0-2]?[0-9]?[0-9]:[0-6]?[0-9]?[0-9]?[0-9]?[0-9]\//;
+    if(re.test(device.localURL)){
+        var newDevice = {name: device.name, localURL: device.localURL}
+        // Create a new device and save to DB
+        Device.create(newDevice, function(err, newlyCreated){
+            if(err){
+                console.log(err);
+                res.send("error", {error: err});
+            } else {
+                //redirect back to home page
+                if (req.body.device == undefined){
+                    res.send(newlyCreated._id);
+                } else {
+                    res.redirect("/control");
+                }
+            }
+        });
+    } else {
+        res.send("Invalid regular expression");
+    }
+})
+
+// Destroy route: Deletes a device
+app.delete("/devices/:id", function(req, res){
+    Device.findByIdAndRemove(req.params.id, function(err){
+       if(err){
+            console.log(err);
+            res.send("error", {error: err});
+        } else {
+           res.redirect("/control");
+       }
+    });
  });
 
  // Catch all routes
@@ -49,12 +91,9 @@ app.get("/control", function(req, res){
     res.redirect("/control");
 });
 
+const PORT = process.env.PORT || 80;
 
-
-
-
-
-app.listen(PORT,hostname,function(eer){
+app.listen(PORT,function(eer){
     if (eer){
         console.log("Something went wrong.");
     } else {

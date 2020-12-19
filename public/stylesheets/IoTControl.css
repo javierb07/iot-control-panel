@@ -1,0 +1,26 @@
+body {
+	background: #272727 !important;
+}
+.row {
+    background: #afb7c4;
+}
+.message{
+    background: white;
+}
+
+.device-form{
+    margin: auto;
+    padding-bottom: 5px;
+    padding-top: 5px;
+
+}
+
+#add-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-padding{
+    padding: 0;
+}

@@ -1,7 +1,6 @@
 var express        = require("express"),
     app            = express(),
     bodyParser     = require("body-parser"),
-    Wemo           = require('wemo-client'),
     mongoose       = require("mongoose"),
     methodOverride = require("method-override"),
     seedDB         = require("./seeds"),
@@ -52,7 +51,7 @@ app.get("/control", function(req, res){
 app.post("/devices", function(req, res){
     var device = req.body.device;
     // Validate websocket URL
-    let re = /^(wss?):\/\/[0-2]?[0-9]?[0-9].[0-2]?[0-9]?[0-9].[0-2]?[0-9]?[0-9].[0-2]?[0-9]?[0-9]:[0-6]?[0-9]?[0-9]?[0-9]?[0-9]\//;
+    let re = /(wss?):\/\/[0-2]?[0-9]?[0-9].[0-2]?[0-9]?[0-9].[0-2]?[0-9]?[0-9].[0-2]?[0-9]?[0-9]:[0-6]?[0-9]?[0-9]?[0-9]?[0-9]/;
     if(re.test(device.localURL)){
         var newDevice = {name: device.name, localURL: device.localURL}
         // Create a new device and save to DB

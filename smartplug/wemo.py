@@ -51,7 +51,7 @@ async def hello(websocket, path):
             await websocket.send(str(switch.current_power))
 
         if cmd == 'state':
-            print('state: ', switch.get_state())
+            print(switch.get_state())
             await websocket.send(str(switch.get_state()))
 
 

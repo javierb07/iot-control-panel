@@ -33,27 +33,27 @@
                 </div>
                 <% for (i=0; i < devices.length; i++){%>
                     <% var device = devices[i]; %>
-                <div class="container ">
-                    <h2 class="device-name"><%=device.name%></h2>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center border border-dark">Machine Control</div>
-                            <div class="col d-flex justify-content-center border border-dark">Power consumption [mW]</div>
-                            <div class="col d-flex justify-content-center border border-dark">URL</div>
-                            <div class="col d-flex justify-content-center border border-dark">Device</div>
-                        </div>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center border border-dark message" id="<%=device.name.replace(' ', '-');%>-button">
-                                <button class="btn btn-dark btn-sm" >OFF</button>
+                    <div class="container ">
+                        <h2 class="device-name"><%=device.name%></h2>
+                            <div class="row">
+                                <div class="col d-flex justify-content-center border border-dark">Machine Control</div>
+                                <div class="col d-flex justify-content-center border border-dark">Power consumption [mW]</div>
+                                <div class="col d-flex justify-content-center border border-dark">URL</div>
+                                <div class="col d-flex justify-content-center border border-dark">Device</div>
                             </div>
-                            <div class="col d-flex justify-content-center border border-dark message" id="<%=device.name%>-power">0</div>
-                            <div class="col d-flex justify-content-center border border-dark message device-URL"><%=device.localURL%></div>
-                            <div class="col d-flex justify-content-center border border-dark message">
-                                <form action="/devices/<%=device._id%>?_method=DELETE" method="POST">
-                                    <button class="btn btn-dark btn-sm">DELETE</button>
-                                </form>
+                            <div class="row">
+                                <div class="col d-flex justify-content-center border border-dark message" id="<%=device.name.replace(/\s/g, '-')%>-button">
+                                    <button class="btn btn-dark btn-sm">OFF</button>
+                                </div>
+                                <div class="col d-flex justify-content-center border border-dark message" id="<%=device.name.replace(/\s/g, '-')%>-power">0</div>
+                                <div class="col d-flex justify-content-center border border-dark message device-URL"><%=device.localURL%></div>
+                                <div class="col d-flex justify-content-center border border-dark message">
+                                    <form action="/devices/<%=device._id%>?_method=DELETE" method="POST">
+                                        <button class="btn btn-dark btn-sm">DELETE</button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                </div>
+                    </div>
                 <% } %>
             </div>	
         </div>

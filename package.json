@@ -8,8 +8,7 @@
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "method-override": "^3.0.0",
-    "mongoose": "^5.11.8",
-    "wemo-client": "^0.15.0"
+    "mongoose": "^5.11.8"
   },
   "devDependencies": {},
   "scripts": {

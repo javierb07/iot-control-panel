@@ -7,15 +7,17 @@ Tested and developed connecting 4 machines and devices to Wemo Insight Smart Plu
 
 See https://github.com/iancmcc/ouimeaux for the API used to interact with the Wemo plugs.
 
-Should work with any smart plug that works under webSocket protocols and understands the following commands:
+Should work with any smart plug that works under WebSocket protocols and understands the following commands:
 *toggle: to switch between on and off states
 *power: to send power consumption data
 
-In the smartplug folder it is included a Python file to start a webSocket server from a Wemo smart plug. Set up the Wemo device using their app, change the name variable in the Python script to the name of your device and run the script. Copy the IP address of your webSocket.
+In the smartplug folder it is included a Python file to start a WebSocket server for a Wemo smart plug. Set up the Wemo device using their app, change the name variable in the Python script to match the name of your device and run the script. Copy the IP address of your webSocket.
 
 Finally, add your device to the database through the web GUI and all is set.
 
 See example at https://iot-control.herokuapp.com/control
+
+See example functionality: https://youtu.be/LzCBtwnPPYA
 
 Example dashboard:
 

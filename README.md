@@ -15,7 +15,7 @@ In the smartplug folder it is included a Python file to start a WebSocket server
 
 Finally, add your device to the database through the web GUI and all is set.
 
-See example at https://iot-control.herokuapp.com/control
+See example at: https://iot-control.herokuapp.com/control
 
 See example functionality: https://youtu.be/LzCBtwnPPYA
 

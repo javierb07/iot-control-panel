@@ -22,4 +22,3 @@ See example functionality: https://youtu.be/LzCBtwnPPYA
 Example dashboard:
 
 ![dashboard](https://github.com/javierb07/IoT_Control_Panel/blob/master/Example_Panel.jpg)
-

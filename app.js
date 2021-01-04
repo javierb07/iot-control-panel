@@ -52,8 +52,24 @@ app.post("/devices", function(req, res){
     var device = req.body.device;
     // Validate websocket URL
     let re = /(wss?):\/\/[0-2]?[0-9]?[0-9].[0-2]?[0-9]?[0-9].[0-2]?[0-9]?[0-9].[0-2]?[0-9]?[0-9]:[0-6]?[0-9]?[0-9]?[0-9]?[0-9]/;
-    if(re.test(device.localURL)){
-        var newDevice = {name: device.name, localURL: device.localURL}
+    if(re.test(device.IP )){
+        var newDevice = {name: device.name, localURL: device.IP}
+        // Create a new device and save to DB
+        Device.create(newDevice, function(err, newlyCreated){
+            if(err){
+                console.log(err);
+                res.send("error", {error: err});
+            } else {
+                //redirect back to home page
+                if (req.body.device == undefined){
+                    res.send(newlyCreated._id);
+                } else {
+                    res.redirect("/control");
+                }
+            }
+        });
+    } else if(device.URL) {
+        var newDevice = {name: device.name, localURL: device.URL}
         // Create a new device and save to DB
         Device.create(newDevice, function(err, newlyCreated){
             if(err){

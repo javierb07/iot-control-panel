@@ -51,15 +51,23 @@
                                 <div class="col d-flex justify-content-center border border-dark">Device</div>
                             </div>
                             <div class="row">
-                                <div class="col d-flex justify-content-center border border-dark message" id="<%=device.name.replace(/\s/g, '-')%>-button">
-                                    <button class="btn btn-dark btn-sm">OFF</button>
+                                <div class="col d-flex justify-content-center border border-dark message" >
+                                    <div class="text-ui" id="<%=device.name.replace(/\s/g, '-')%>-button">
+                                        <form action="">
+                                            <button class="btn btn-dark btn-sm">OFF</button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="col d-flex justify-content-center border border-dark message" id="<%=device.name.replace(/\s/g, '-')%>-power">0</div>
+                                <div class="col d-flex justify-content-center border border-dark message" >
+                                    <div class="text-ui" id="<%=device.name.replace(/\s/g, '-')%>-power">0</div>
+                                </div>
                                 <div class="col d-flex justify-content-center border border-dark message device-URL"><%=device.localURL%></div>
-                                <div class="col d-flex justify-content-center border border-dark message">
-                                    <form action="/devices/<%=device._id%>?_method=DELETE" method="POST">
-                                        <button class="btn btn-dark btn-sm">DELETE</button>
-                                    </form>
+                                <div class="col d-flex justify-content-center border border-dark message" >
+                                    <div class="text-ui">
+                                        <form action="/devices/<%=device._id%>?_method=DELETE" method="POST">
+                                            <button class="btn btn-dark btn-sm ">DELETE</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                     </div>

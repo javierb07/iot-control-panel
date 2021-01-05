@@ -13,19 +13,23 @@ $(document).ready(function() {
 		websockets[devicesNames[i]] = new WebSocket(devicesURLs[i]);
 	}
 	for (const [name, websocket] of Object.entries(websockets)) {
-		setTimeout(function(){ retrivedPowerData(websockets);}, 500);
 		websocket.onerror = function (event) {
 			alert("Problem establishing communication with " + name);
 		}
-		// Listen for clicks on control button
-		var modName = name.replaceAll(" ", "-");
-		var nameButton = "#" + modName + "-button";
-		$(nameButton).click(function(event){
-			if( websocket.readyState == 1 ){
-				websocket.send("toggle");
-				retrivedPowerData(websockets);
-			}	
-		});
+		websocket.onopen = function (event) {
+			setTimeout(function(){ retrivedPowerData(websockets);}, 500);
+			// Listen for clicks on control button
+			var modName = name.replaceAll(" ", "-");
+			var nameButton = "#" + modName + "-button";
+			$(nameButton).click(function(event){
+				console.log(websocket.readyState);
+				if( websocket.readyState == 1 ){
+					console.log("socket ready");
+					websocket.send("toggle");
+					retrivedPowerData(websockets);
+				}	
+			});
+		}
 	}
 });
 

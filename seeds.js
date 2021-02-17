@@ -3,20 +3,8 @@ var Device = require("./models/device");
 
 var data = [
     {
-        name: "3D Printer", 
-        localURL: "ws://192.168.0.9:8765/",
-    },
-    {
-        name: "Laser Engraver", 
-        localURL: "ws://192.168.0.9:8766/",
-    },
-    {
-        name: "Intelligent Storage System", 
-        localURL: "ws://192.168.0.9:8768/",
-    },
-    {
-        name: "Smart Lamp", 
-        localURL: "ws://192.168.0.9:8767/",
+        name: "Demo Device", 
+        localURL: "wss://websocket-example-07.herokuapp.com",
     }
 ]
 

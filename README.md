@@ -17,6 +17,8 @@ Finally, add your device to the database through the web GUI and all is set.
 
 See example functionality: https://youtu.be/daIK7hz21lI
 
+And an implemnetation example: https://iot-control-panel.herokuapp.com/control
+
 Example dashboard:
 
 ![dashboard](./images/example-panel.jpg)

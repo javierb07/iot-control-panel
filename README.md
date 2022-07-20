@@ -15,8 +15,8 @@ In the smartplug folder it is included a Python file to start a WebSocket server
 
 Finally, add your device to the database through the web GUI and all is set.
 
-See example functionality: https://youtu.be/LzCBtwnPPYA
+See example functionality: https://youtu.be/daIK7hz21lI
 
 Example dashboard:
 
-![dashboard](https://github.com/javierb07/IoT_Control_Panel/blob/master/Example_Panel.jpg)
+![dashboard](./images/example-panel.jpg)

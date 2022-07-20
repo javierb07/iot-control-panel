@@ -1,14 +1,16 @@
 body {
-	background: #272727 !important;
+    background: #272727 !important;
 }
+
 .row {
     background: #afb7c4;
 }
-.message{
+
+.message {
     background: white;
 }
 
-.device-form{
+.device-form {
     margin: auto;
     padding-bottom: 5px;
     padding-top: 5px;
@@ -21,10 +23,11 @@ body {
     justify-content: center;
 }
 
-.no-padding{
+.no-padding {
     padding: 0;
 }
-.text-ui{
+
+.text-ui {
     padding: auto;
     margin: auto 0;
 }
